@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       SQLITE_DB_LOCATION: /tmp/todos/todo.db
     steps:
