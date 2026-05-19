@@ -8,7 +8,11 @@ on:
 
 jobs:
   build:
+    name: Build & push Docker image to Github Container Registry
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
