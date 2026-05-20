@@ -5,8 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon -L src/index.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest ./spec",
+    "test:verbose": "jest --verbose ./spec",
+    "test:watch": "jest --watch ./spec",
     "test:e2e": "npx playwright test"
   },
   "dependencies": {
