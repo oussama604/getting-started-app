@@ -17,7 +17,7 @@ jobs:
       SQLITE_DB_LOCATION: /tmp/todos/todo.db
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-node@v4
         with:
