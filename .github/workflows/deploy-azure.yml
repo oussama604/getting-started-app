@@ -2,7 +2,7 @@ name: Deploy to Azure
 
 on:
   workflow_run:
-    workflows: ["build and push docker image to GitHub container registry"]
+  workflows: ["Build & push Docker image to Github Container Registry"]
     types:
       - completed
 
@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME }}
           password: ${{ secrets.AZURE_VM_PASSWORD }}
           port: 22
-          source: "compose.yml"
+          source: "compose.yaml"
           target: "/home/${{ secrets.AZURE_VM_USERNAME }}"
 
       - name: Deploy on VM
