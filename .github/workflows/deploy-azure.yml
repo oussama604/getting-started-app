@@ -2,7 +2,7 @@ name: Deploy to Azure
 
 on:
   workflow_run:
-  workflows: ["Build & push Docker image to Github Container Registry"]
+    workflows: ["Build & push Docker image to Github Container Registry"]
     types:
       - completed
 
