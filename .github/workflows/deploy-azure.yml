@@ -1,0 +1,37 @@
+name: Deploy to Azure
+
+on:
+  workflow_run:
+    workflows: ["build & push docker image to github container registry"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy docker compose to VM
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.AZURE_VM_HOST }}
+          username: ${{ secrets.AZURE_VM_USERNAME }}
+          password: ${{ secrets.AZURE_VM_PASSWORD }}
+          port: 22
+          source: "compose.yml"
+          target: "/home/${{ secrets.AZURE_VM_USERNAME }}"
+
+      - name: Deploy on VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.AZURE_VM_HOST }}
+          username: ${{ secrets.AZURE_VM_USERNAME }}
+          password: ${{ secrets.AZURE_VM_PASSWORD }}
+          port: 22
+          script: |
+            cd /home/${{ secrets.AZURE_VM_USERNAME }}
+            docker compose pull
+            docker compose up -d --remove-orphans
